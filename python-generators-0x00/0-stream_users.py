@@ -3,8 +3,8 @@ import mysql.connector
 def stream_users():
     connection = mysql.connector.connect(
         host="localhost",
-        user="your_mysql_username",
-        password="your_mysql_password",
+        user="username",
+        password="password",
         database="ALX_prodev"
     )
     cursor = connection.cursor(dictionary=True)
