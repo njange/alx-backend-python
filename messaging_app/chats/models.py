@@ -4,7 +4,8 @@ from django.db import models
 
 class User(AbstractUser):
     # Add any additional fields here if needed
-    pass
+    bio = models.TextField(null=True, blank=True)  # Example custom field
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
     class Meta:
         verbose_name = 'user'
@@ -24,6 +25,9 @@ class User(AbstractUser):
         help_text="Specific permissions for this user.",
         verbose_name="user permissions",
     )
+
+    def __str__(self):
+        return self.username
 
 
 class Conversation(models.Model):
