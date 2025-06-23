@@ -1,7 +1,11 @@
-from django.urls import path
-from . import views
+from rest_framework.routers import DefaultRouter
+from django.urls import path, include
+from .views import ConversationViewSet, MessageViewSet
+
+router = DefaultRouter()
+router.register(r'conversations', ConversationViewSet, basename='conversation')
+router.register(r'messages', MessageViewSet, basename='message')
 
 urlpatterns = [
-    # Example endpoint
-    path('', views.index, name='index'),
+    path('api/', include(router.urls)),
 ]
