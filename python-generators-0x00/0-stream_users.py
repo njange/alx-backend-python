@@ -1,4 +1,4 @@
-import mysql.connector
+import mysql.connector 
 
 def stream_users():
     connection = mysql.connector.connect(
