@@ -1,27 +1,29 @@
-import mysql.connector
+import sqlite3
 
 def stream_users_in_batches(batch_size):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="username",
-        password="password",
-        database="ALX_prodev"
-    )
-    cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM user_data")
-
+    """
+    Generator that yields batches of users from the users database.
+    Each batch is a list of user dictionaries.
+    """
+    conn = sqlite3.connect('users.db')
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM users")
     while True:
-        batch = cursor.fetchmany(batch_size)
-        if not batch:
+        rows = cur.fetchmany(batch_size)
+        if not rows:
             break
-        yield batch
-
-    cursor.close()
-    connection.close()
-
+        yield [dict(row) for row in rows]
+    conn.close()
 
 def batch_processing(batch_size):
+    """
+    Processes each batch to filter users over the age of 25 and prints them.
+    """
     for batch in stream_users_in_batches(batch_size):
         for user in batch:
-            if user['age'] > 25:
+            if user.get('age', 0) > 25:
                 print(user)
+
+
+    return "Batch processing complete."
