@@ -1,5 +1,15 @@
 #!/usr/bin/python3
 seed = __import__('seed')
+def stream_user_ages():
+    """
+    Generator function that yields user ages one by one from the database.
+    """
+    connection = seed.connect_to_prodev()
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT age FROM user_data")
+    for row in cursor:
+        yield row['age']
+    connection.close()
 
 def paginate_users(page_size, offset):
     """
@@ -24,4 +34,5 @@ def lazy_paginate(page_size):
         yield page
         offset += page_size
 
-
+for age in stream_user_ages():
+    print(age)
