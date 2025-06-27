@@ -1,0 +1,14 @@
+# Command to apply the Ingress configuration
+kubectl apply -f ingress.yaml
+
+# Command to verify the Ingress resource
+kubectl get ingress
+
+# Command to describe the Ingress resource for debugging or verification
+kubectl describe ingress messaging-app-ingress
+
+# Optional: Command to check the services in the cluster
+kubectl get services
+
+# Optional: Command to check the pods in the cluster
+kubectl get pods
