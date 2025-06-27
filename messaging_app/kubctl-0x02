@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Deploy the blue version
+echo "Deploying the blue version..."
+kubectl apply -f blue_deployment.yaml
+
+# Deploy the green version
+echo "Deploying the green version..."
+kubectl apply -f green_deployment.yaml
+
+# Verify the deployments
+echo "Verifying deployments..."
+kubectl get deployments
+
+# Check logs for the green version
+echo "Checking logs for the green version..."
+kubectl logs -l app=messaging-app,version=green
+
+# Gradually switch traffic to the green version
+echo "Switching traffic to the green version..."
+kubectl patch service messaging-app-service -p '{"spec":{"selector":{"app":"messaging-app","version":"green"}}}'
+
+# Verify the service is routing traffic to the green version
+echo "Verifying service routing..."
+kubectl describe service messaging-app-service
