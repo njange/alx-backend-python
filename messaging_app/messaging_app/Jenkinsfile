@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git credentialsId: 'your-github-credentials-id', url: 'https://github.com/njange/alx-backend-python.git'
+                git credentialsId: 'github-credentials', url: 'https://github.com/njange/alx-backend-python.git'
             }
         }
         stage('Install Dependencies') {
