@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-# filepath: /home/njange/Projects/alx-backend-python/0x03-Unittests_and_integration_tests/test_utils.py
 import unittest
 from parameterized import parameterized
-from .utils import access_nested_map
+from utils import access_nested_map  # Use absolute import
 
 class TestAccessNestedMap(unittest.TestCase):
     @parameterized.expand([

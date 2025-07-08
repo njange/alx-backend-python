@@ -1,0 +1,3 @@
+def access_nested_map(nested_map, path):
+    # function implementation
+    ...
